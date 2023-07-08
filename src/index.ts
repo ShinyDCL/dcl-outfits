@@ -5,6 +5,8 @@ import { movePlayerTo } from '~system/RestrictedActions'
 import { SkyboxManager } from './skyboxManager'
 import { createArrowButtons } from './arrowButtons'
 import { createNPCs } from './createNPCs'
+import { getUserData } from '~system/UserIdentity'
+import { getUserOutfits } from './api'
 
 export function main() {
   const scene = engine.addEntity()
@@ -24,16 +26,11 @@ export function main() {
   movePlayerTo({ newRelativePosition: Vector3.create(sceneMiddle, sceneMiddle + yOffset, sceneMiddle) })
 
   executeTask(async () => {
-    try {
-      let response = await fetch(
-        'https://peer-wc1.decentraland.org/lambdas/outfits/0x185af8cf06431DAcbc877ac754D21e86B4F68136'
-      )
-      let json = await response.json()
-      const outfits = json?.metadata?.outfits
+    const userData = await getUserData({})
+    const address = userData?.data?.userId
+    if (!address) return
 
-      if (outfits) createNPCs(platform, outfits)
-    } catch {
-      console.log('failed to reach URL')
-    }
+    const outfits = await getUserOutfits(address)
+    if (outfits) createNPCs(platform, outfits)
   })
 }

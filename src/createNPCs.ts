@@ -1,15 +1,6 @@
 import { AvatarShape, Entity, Transform, engine } from '@dcl/sdk/ecs'
 import { Color4, Vector3 } from '@dcl/sdk/math'
-
-export interface Outfit {
-  outfit: {
-    bodyShape: string
-    wearables: string[]
-    eyes: { color: { r: number; g: number; b: number; a: number } }
-    hair: { color: { r: number; g: number; b: number; a: number } }
-    skin: { color: { r: number; g: number; b: number; a: number } }
-  }
-}
+import { Outfit } from './api'
 
 export const createNPCs = (parent: Entity, outfits: Outfit[]) => {
   const npcs = engine.addEntity()
@@ -19,6 +10,8 @@ export const createNPCs = (parent: Entity, outfits: Outfit[]) => {
   })
 
   outfits.forEach(({ outfit }, i) => {
+    if (!outfit) return
+
     const {
       eyes: { color: eyeColor },
       hair: { color: hairColor },
