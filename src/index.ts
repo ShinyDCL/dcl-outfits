@@ -7,6 +7,7 @@ import { createArrowButtons } from './arrowButtons'
 import { createNPCs } from './createNPCs'
 import { getUserData } from '~system/UserIdentity'
 import { getUserOutfits } from './api'
+import { setupUi } from './setupUi'
 
 export function main() {
   const scene = engine.addEntity()
@@ -24,6 +25,12 @@ export function main() {
   const skyboxManager = new SkyboxManager(scene)
   createArrowButtons(platform, skyboxManager.next, skyboxManager.previous)
   movePlayerTo({ newRelativePosition: Vector3.create(sceneMiddle, sceneMiddle + yOffset, sceneMiddle) })
+  setupUi((address: string) => {
+    executeTask(async () => {
+      const outfits = await getUserOutfits(address)
+      if (outfits) createNPCs(platform, outfits)
+    })
+  })
 
   executeTask(async () => {
     const userData = await getUserData({})
