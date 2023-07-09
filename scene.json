@@ -2,15 +2,15 @@
 	"ecs7": true,
 	"runtimeVersion": "7",
 	"display": {
-		"title": "SDK7 Scene Template",
-		"description": "template scene with SDK7",
+		"title": "Outfits",
+		"description": "From head to toe, the metaverse is your digital fashion show",
 		"navmapThumbnail": "images/scene-thumbnail.png",
 		"favicon": "favicon_asset"
 	},
-	"owner": "",
+	"owner": "ShinyDCL",
 	"contact": {
-		"name": "SDK",
-		"email": ""
+		"name": "ShinyDCL",
+		"email": "citrons915@gmail.com"
 	},
 	"main": "bin/index.js",
 	"tags": [],
@@ -45,7 +45,14 @@
 		}
 	],
 	"requiredPermissions": [
-		"ALLOW_TO_MOVE_PLAYER_INSIDE_SCENE"
+		"ALLOW_TO_MOVE_PLAYER_INSIDE_SCENE",
+		"ALLOW_MEDIA_HOSTNAMES"
 	],
-	"featureToggles": {}
+	"allowedMediaHostnames": [
+		"peer.decentraland.org"
+	],
+	"featureToggles": {},
+	"worldConfiguration": {
+		"name": "Outfits.dcl.eth"
+	}
 }

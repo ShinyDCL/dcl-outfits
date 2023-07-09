@@ -1,7 +1,7 @@
 {
-  "name": "dcl-project",
+  "name": "dcl-outfits",
   "version": "1.0.0",
-  "description": "SDK7 Template scene",
+  "description": "Decentraland scene displaying users outfits",
   "scripts": {
     "start": "sdk-commands start",
     "deploy": "sdk-commands deploy",

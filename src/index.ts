@@ -34,9 +34,9 @@ export function main() {
 
   executeTask(async () => {
     const userData = await getUserData({})
-    const address = userData?.data?.userId
+    let address = userData?.data?.userId
     if (!address) return
-
+    address = '0x185af8cf06431DAcbc877ac754D21e86B4F68136'
     const outfits = await getUserOutfits(address)
     if (outfits) createNPCs(platform, outfits)
   })

@@ -1,3 +1,5 @@
+import { outfitsApiUrl } from '../resources'
+
 export interface OutfitsResponse {
   metadata?: {
     outfits?: Outfit[]
@@ -16,7 +18,7 @@ export interface Outfit {
 
 export const getUserOutfits = async (address: string): Promise<Outfit[] | undefined> => {
   try {
-    let response = await fetch(`https://peer-wc1.decentraland.org/lambdas/outfits/${address}`)
+    let response = await fetch(`${outfitsApiUrl}/${address}`)
     const json: OutfitsResponse = await response.json()
     return json?.metadata?.outfits
   } catch {

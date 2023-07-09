@@ -1,5 +1,6 @@
 import { AvatarShape, Entity, Transform, engine, removeEntityWithChildren } from '@dcl/sdk/ecs'
 import { Color4, Vector3 } from '@dcl/sdk/math'
+import { createDetailsButton } from './detailsButton'
 import { Outfit } from './api'
 
 let npcRootEntity: Entity
@@ -9,7 +10,7 @@ export const createNPCs = (parent: Entity, outfits: Outfit[]) => {
 
   npcRootEntity = engine.addEntity()
   Transform.create(npcRootEntity, {
-    position: Vector3.create(-4.5, 0, -3),
+    position: Vector3.create(-4.8, 0.25, -3),
     parent
   })
 
@@ -34,9 +35,11 @@ export const createNPCs = (parent: Entity, outfits: Outfit[]) => {
     })
 
     Transform.create(npc, {
-      position: Vector3.create(i * 2.2, 0.25, 0),
+      position: Vector3.create(i * 2.5, 0, 0),
       scale: Vector3.create(1.5, 1.5, 1.5),
       parent: npcRootEntity
     })
+
+    createDetailsButton(npc, outfit.wearables)
   })
 }
