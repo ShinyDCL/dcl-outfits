@@ -1,4 +1,4 @@
-import { outfitsApiUrl } from '../resources'
+import { decentralandApi } from '../config'
 
 export interface OutfitsResponse {
   metadata?: {
@@ -18,7 +18,7 @@ export interface Outfit {
 
 export const getUserOutfits = async (address: string): Promise<Outfit[] | undefined> => {
   try {
-    let response = await fetch(`${outfitsApiUrl}/${address}`)
+    const response = await fetch(`${decentralandApi}/lambdas/outfits/${address}`)
     const json: OutfitsResponse = await response.json()
     return json?.metadata?.outfits
   } catch {

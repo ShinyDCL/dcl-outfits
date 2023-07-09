@@ -4,6 +4,12 @@ export const sceneSize = parcelCount * parcelSize
 export const sceneMiddle = sceneSize / 2
 export const yOffset = 0.1
 
-export const outfitsApiUrl = 'https://peer-wc1.decentraland.org/lambdas/outfits'
-export const wearablesApiUrl = 'https://nft-api.decentraland.org/v1/items'
-export const marketplaceUrl = 'https://peer-wc1.decentraland.org/lambdas/outfits'
+export const models = {
+  arrowButton: 'models/arrowButton.glb',
+  button: 'models/button.glb',
+  plusSign: 'models/plusSign.glb',
+  minusSign: 'models/minusSign.glb',
+  loading: 'models/loading.glb',
+  tile: 'models/tile.glb',
+  platform: 'models/platform.glb'
+} as const

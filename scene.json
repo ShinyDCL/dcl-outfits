@@ -35,12 +35,12 @@
 			"position": {
 				"x": 24,
 				"y": 25,
-				"z": 24
+				"z": 29
 			},
 			"cameraTarget": {
-				"x": 8,
-				"y": 1,
-				"z": 8
+				"x": 24,
+				"y": 24,
+				"z": 24
 			}
 		}
 	],
@@ -49,7 +49,9 @@
 		"ALLOW_MEDIA_HOSTNAMES"
 	],
 	"allowedMediaHostnames": [
-		"peer.decentraland.org"
+		"peer.decentraland.org",
+		"nft-api.decentraland.org",
+		"icecast.ravepartyradio.org"
 	],
 	"featureToggles": {},
 	"worldConfiguration": {

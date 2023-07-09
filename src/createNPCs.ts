@@ -5,7 +5,10 @@ import { Outfit } from './api'
 
 let npcRootEntity: Entity
 
-export const createNPCs = (parent: Entity, outfits: Outfit[]) => {
+/*
+ * Creates NPCs for each outfit
+ */
+export const createNPCs = (parent: Entity, outfits: Outfit[], name: string = 'NPC') => {
   if (npcRootEntity) removeEntityWithChildren(engine, npcRootEntity)
 
   npcRootEntity = engine.addEntity()
@@ -31,7 +34,8 @@ export const createNPCs = (parent: Entity, outfits: Outfit[]) => {
       eyeColor: Color4.create(eyeColor.r, eyeColor.g, eyeColor.b, eyeColor.a),
       hairColor: Color4.create(hairColor.r, hairColor.g, hairColor.b, hairColor.a),
       skinColor: Color4.create(skinColor.r, skinColor.g, skinColor.b, skinColor.a),
-      emotes: []
+      emotes: [],
+      name
     })
 
     Transform.create(npc, {

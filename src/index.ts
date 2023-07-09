@@ -1,13 +1,14 @@
 import { engine, executeTask, GltfContainer, Transform } from '@dcl/sdk/ecs'
 import { Vector3 } from '@dcl/sdk/math'
-import { sceneMiddle, yOffset } from './resources'
+import { models, sceneMiddle, yOffset } from './resources'
 import { movePlayerTo } from '~system/RestrictedActions'
 import { SkyboxManager } from './skyboxManager'
 import { createArrowButtons } from './arrowButtons'
 import { createNPCs } from './createNPCs'
 import { getUserData } from '~system/UserIdentity'
-import { getUserOutfits } from './api'
+import { getUserOutfits, getUserProfile } from './api'
 import { setupUi } from './setupUi'
+import { setupMusic } from './setupMusic'
 
 export function main() {
   const scene = engine.addEntity()
@@ -16,7 +17,7 @@ export function main() {
   })
 
   const platform = engine.addEntity()
-  GltfContainer.create(platform, { src: `models/platform.glb` })
+  GltfContainer.create(platform, { src: models.platform })
   Transform.create(platform, {
     position: Vector3.create(0, -3, 0),
     parent: scene
@@ -24,20 +25,27 @@ export function main() {
 
   const skyboxManager = new SkyboxManager(scene)
   createArrowButtons(platform, skyboxManager.next, skyboxManager.previous)
-  movePlayerTo({ newRelativePosition: Vector3.create(sceneMiddle, sceneMiddle + yOffset, sceneMiddle) })
+
   setupUi((address: string) => {
     executeTask(async () => {
+      const user = await getUserProfile(address)
       const outfits = await getUserOutfits(address)
-      if (outfits) createNPCs(platform, outfits)
+
+      if (outfits) createNPCs(platform, outfits, user?.name)
     })
   })
 
+  setupMusic()
+
   executeTask(async () => {
     const userData = await getUserData({})
-    let address = userData?.data?.userId
-    if (!address) return
-    address = '0x185af8cf06431DAcbc877ac754D21e86B4F68136'
-    const outfits = await getUserOutfits(address)
-    if (outfits) createNPCs(platform, outfits)
+
+    if (userData?.data) {
+      const { userId, displayName } = userData.data
+      const outfits = await getUserOutfits(userId)
+      if (outfits) createNPCs(platform, outfits, displayName)
+    }
   })
+
+  movePlayerTo({ newRelativePosition: Vector3.create(sceneMiddle, sceneMiddle + yOffset, sceneMiddle - 5) })
 }

@@ -1,5 +1,4 @@
-import { wearablesApiUrl } from '../resources'
-import { NFTData } from '../utils'
+import { decentralandNftApi } from '../config'
 
 export interface WearablesResponse {
   data?: Wearable[]
@@ -11,18 +10,31 @@ export interface Wearable {
   url: string
 }
 
-export const getAllWearableDetails = async (data: NFTData[]): Promise<Wearable[] | undefined> => {
+const contractRegex = new RegExp(/^0x[a-fA-F0-9]{40}$/)
+
+export const getAllWearableDetails = async (urns: string[]): Promise<Wearable[] | undefined> => {
   try {
-    const results = await Promise.all(data.map((item) => getWearableDetails(item)))
+    const results = await Promise.all(
+      urns.map((urn) => {
+        const urnParts = urn.split(':')
+        const contractAddress = urnParts[urnParts.length - 2]
+        const itemId = urnParts[urnParts.length - 1]
+
+        if (contractAddress && itemId && contractRegex.test(contractAddress)) {
+          return getWearableDetails(contractAddress, itemId)
+        }
+      })
+    )
+    // Filter out undefined results
     return results.filter((res) => res) as Wearable[]
   } catch {
     console.log('Failed to fetch all wearable details')
   }
 }
 
-export const getWearableDetails = async ({ contractAddress, itemId }: NFTData): Promise<Wearable | undefined> => {
+export const getWearableDetails = async (contractAddress: string, itemId: string): Promise<Wearable | undefined> => {
   try {
-    let response = await fetch(`${wearablesApiUrl}?contractAddress=${contractAddress}&itemId=${itemId}`)
+    let response = await fetch(`${decentralandNftApi}/items?contractAddress=${contractAddress}&itemId=${itemId}`)
     const json: WearablesResponse = await response.json()
     return json?.data?.[0]
   } catch {
