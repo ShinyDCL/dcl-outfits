@@ -3,7 +3,7 @@
 	"runtimeVersion": "7",
 	"display": {
 		"title": "Outfits",
-		"description": "From head to toe, the metaverse is your digital fashion show",
+		"description": "From head to toe, the metaverse is your digital fashion show. Interactive scene created for Game Jam 2023.",
 		"navmapThumbnail": "images/scene-thumbnail.png",
 		"favicon": "favicon_asset"
 	},

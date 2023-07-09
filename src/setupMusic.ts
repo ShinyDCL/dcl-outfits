@@ -6,7 +6,6 @@ import { sceneMiddle, yOffset } from './resources'
  * Creates one time trigger for starting music when user enters it
  */
 export const setupMusic = () => {
-  utils.triggers.enableDebugDraw(true)
   const triggerEntity = engine.addEntity()
   Transform.create(triggerEntity)
 

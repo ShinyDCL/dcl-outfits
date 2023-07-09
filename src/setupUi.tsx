@@ -1,11 +1,7 @@
 import ReactEcs, { Button, Input, Label, ReactEcsRenderer, UiEntity } from '@dcl/sdk/react-ecs'
 import { Color4 } from '@dcl/sdk/math'
-
-const colors = {
-  blue: Color4.create(0, 0, 1, 0.8),
-  pink: Color4.create(1, 0, 1, 0.8),
-  black: Color4.create(0, 0, 0, 0.8)
-} as const
+import { colors } from './resources'
+import { Message } from './message'
 
 export const setupUi = (onSubmitAddress: (address: string) => void) => {
   let isInputVisible = false
@@ -14,27 +10,27 @@ export const setupUi = (onSubmitAddress: (address: string) => void) => {
   ReactEcsRenderer.setUiRenderer(() => (
     <UiEntity
       uiTransform={{
-        width: 1,
-        height: 1,
+        width: 0,
+        height: 0,
         positionType: 'absolute',
-        position: { right: 10, bottom: 10 }
+        position: { top: 5, right: '50%' }
       }}
     >
       <UiEntity
         uiTransform={{
-          width: 300,
-          height: 100,
+          width: 600,
+          height: 50,
+          padding: 5,
           positionType: 'absolute',
-          position: { right: 0, bottom: 0 },
-          padding: 10
+          position: { top: 0, right: -300 }
         }}
         uiBackground={{ color: colors.pink }}
       >
         <Button
-          value="Click here to check\n your friends outfits!"
+          value="Click here to check your friends outfits!"
           uiTransform={{
-            width: 280,
-            height: 80
+            width: 590,
+            height: 40
           }}
           uiBackground={{ color: colors.black }}
           fontSize={20}
@@ -47,58 +43,69 @@ export const setupUi = (onSubmitAddress: (address: string) => void) => {
           width: 600,
           height: 100,
           positionType: 'absolute',
-          position: { right: 310, bottom: 0 },
+          position: { top: 55, right: -300 },
           display: isInputVisible ? 'flex' : 'none',
-          flexDirection: 'column',
-          padding: 10
+          padding: 5
         }}
         uiBackground={{ color: colors.blue }}
       >
-        <Label
-          uiTransform={{
-            width: 580,
-            height: 40
-          }}
-          value="Enter address starting with 0x"
-          fontSize={20}
-        />
         <UiEntity
           uiTransform={{
-            width: 580,
-            height: 40,
+            width: 590,
+            height: 90,
             display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between'
+            flexDirection: 'column',
+            padding: 5
           }}
+          uiBackground={{ color: colors.black }}
         >
-          <Input
+          <Label
             uiTransform={{
-              width: 490,
+              width: 580,
               height: 40
             }}
-            uiBackground={{ color: colors.black }}
+            value="Enter address starting with 0x"
             fontSize={20}
-            placeholder={'Type here'}
-            placeholderColor={Color4.White()}
-            color={Color4.White()}
-            onChange={(e) => (currentInputValue = e)}
           />
-          <Button
-            value="Submit"
+          <UiEntity
             uiTransform={{
-              width: 80,
-              height: 40
+              width: 580,
+              height: 40,
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between'
             }}
-            uiBackground={{ color: colors.black }}
-            fontSize={20}
-            textAlign="middle-center"
-            onMouseDown={() => {
-              isInputVisible = false
-              onSubmitAddress(currentInputValue)
-            }}
-          />
+          >
+            <Input
+              uiTransform={{
+                width: 480,
+                height: 40
+              }}
+              uiBackground={{ color: colors.black }}
+              fontSize={20}
+              placeholder={'Type here'}
+              placeholderColor={Color4.White()}
+              color={Color4.White()}
+              onChange={(e) => (currentInputValue = e)}
+            />
+            <Button
+              value="Submit"
+              uiTransform={{
+                width: 95,
+                height: 40
+              }}
+              uiBackground={{ color: colors.black }}
+              fontSize={20}
+              textAlign="middle-center"
+              onMouseDown={() => {
+                isInputVisible = false
+                onSubmitAddress(currentInputValue.trim())
+              }}
+            />
+          </UiEntity>
         </UiEntity>
       </UiEntity>
+      <Message />
     </UiEntity>
   ))
 }

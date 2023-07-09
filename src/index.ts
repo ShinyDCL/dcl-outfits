@@ -9,6 +9,7 @@ import { getUserData } from '~system/UserIdentity'
 import { getUserOutfits, getUserProfile } from './api'
 import { setupUi } from './setupUi'
 import { setupMusic } from './setupMusic'
+import { hideMessage, showMessage } from './message'
 
 export function main() {
   const scene = engine.addEntity()
@@ -25,6 +26,7 @@ export function main() {
 
   const skyboxManager = new SkyboxManager(scene)
   createArrowButtons(platform, skyboxManager.next, skyboxManager.previous)
+  setupMusic()
 
   setupUi((address: string) => {
     executeTask(async () => {
@@ -32,19 +34,21 @@ export function main() {
       const outfits = await getUserOutfits(address)
 
       if (outfits) createNPCs(platform, outfits, user?.name)
+      else showMessage(`Looks like this user doesn't\n have any outfits created!`)
     })
   })
 
-  setupMusic()
-
   executeTask(async () => {
     const userData = await getUserData({})
-
-    if (userData?.data) {
-      const { userId, displayName } = userData.data
-      const outfits = await getUserOutfits(userId)
-      if (outfits) createNPCs(platform, outfits, displayName)
+    if (!userData?.data) {
+      showMessage('Failed to get user')
+      return
     }
+
+    const { userId, displayName } = userData.data
+    const outfits = await getUserOutfits(userId)
+    if (outfits) createNPCs(platform, outfits, displayName)
+    else showMessage(`Looks like you don't have any outfits,\n start by creating some!`)
   })
 
   movePlayerTo({ newRelativePosition: Vector3.create(sceneMiddle, sceneMiddle + yOffset, sceneMiddle - 5) })
