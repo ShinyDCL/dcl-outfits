@@ -1,7 +1,7 @@
 import { AvatarShape, Entity, Transform, engine, removeEntityWithChildren } from '@dcl/sdk/ecs'
 import { Color4, Vector3 } from '@dcl/sdk/math'
 import { createDetailsButton } from './detailsButton'
-import { Outfit } from './api'
+import { Outfit } from '../api'
 
 let npcRootEntity: Entity
 

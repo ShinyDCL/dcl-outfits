@@ -1,6 +1,6 @@
 import { engine, GltfContainer, Transform, pointerEventsSystem, InputAction, Entity } from '@dcl/sdk/ecs'
 import { Vector3, Quaternion } from '@dcl/sdk/math'
-import { models } from './resources'
+import { models } from '../resources'
 
 /*
  * Creates two arrow buttons for switching between skyboxes

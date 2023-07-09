@@ -8,11 +8,11 @@ import {
   engine,
   pointerEventsSystem
 } from '@dcl/sdk/ecs'
-import { Wearable } from './api'
+import { Wearable } from '../api'
 import { Quaternion, Vector3 } from '@dcl/sdk/math'
 import { openExternalUrl } from '~system/RestrictedActions'
-import { models } from './resources'
-import { marketplaceUrl } from './config'
+import { models } from '../resources'
+import { marketplaceUrl } from '../config'
 
 export const tileSize = 0.4
 export const tileImageSize = tileSize * 0.92

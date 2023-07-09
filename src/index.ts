@@ -2,14 +2,11 @@ import { engine, executeTask, GltfContainer, Transform } from '@dcl/sdk/ecs'
 import { Vector3 } from '@dcl/sdk/math'
 import { models, sceneMiddle, yOffset } from './resources'
 import { movePlayerTo } from '~system/RestrictedActions'
-import { SkyboxManager } from './skyboxManager'
-import { createArrowButtons } from './arrowButtons'
-import { createNPCs } from './createNPCs'
 import { getUserData } from '~system/UserIdentity'
 import { getUserOutfits, getUserProfile } from './api'
-import { setupUi } from './setupUi'
-import { setupMusic } from './setupMusic'
-import { hideMessage, showMessage } from './message'
+import { setupUi, showMessage } from './ui'
+import { SkyboxManager } from './skybox/skyboxManager'
+import { createArrowButtons, createNPCs, setupMusic } from './scene'
 
 export function main() {
   const scene = engine.addEntity()

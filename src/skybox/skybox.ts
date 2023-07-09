@@ -1,6 +1,6 @@
 import { Entity, engine, Transform, MeshRenderer, Material } from '@dcl/sdk/ecs'
 import { Vector3, Quaternion } from '@dcl/sdk/math'
-import { sceneSize } from './resources'
+import { sceneSize } from '../resources'
 
 export const createSkyBox = (parent: Entity, folderName: string): Entity => {
   const folderPath = `images/skybox/${folderName}`

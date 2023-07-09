@@ -1,6 +1,6 @@
 import { Entity, GltfContainer, InputAction, PointerEvents, Transform, engine, pointerEventsSystem } from '@dcl/sdk/ecs'
 import { Vector3 } from '@dcl/sdk/math'
-import { models } from './resources'
+import { models } from '../resources'
 import { createWearableList } from './wearableList'
 
 /*

@@ -1,6 +1,6 @@
 import * as utils from '@dcl-sdk/utils'
 import { AudioStream, Transform, engine } from '@dcl/sdk/ecs'
-import { sceneMiddle, yOffset } from './resources'
+import { sceneMiddle, yOffset } from '../resources'
 
 /*
  * Creates one time trigger for starting music when user enters it

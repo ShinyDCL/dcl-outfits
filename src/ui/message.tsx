@@ -1,5 +1,5 @@
 import ReactEcs, { UiEntity } from '@dcl/sdk/react-ecs'
-import { colors } from './resources'
+import { colors } from '../resources'
 import * as utils from '@dcl-sdk/utils'
 
 let isVisible = false
