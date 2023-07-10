@@ -1,7 +1,7 @@
 import { Entity, Transform, engine, removeEntityWithChildren } from '@dcl/sdk/ecs'
 import { createSkyBox } from './skybox'
 
-const skyboxFolders = Array.from(Array(6).keys())
+const skyboxFolders = Array.from(Array(9).keys())
 const maxIndex = skyboxFolders.length - 1
 
 export class SkyboxManager {

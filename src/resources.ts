@@ -13,7 +13,8 @@ export const models = {
   minusSign: 'models/minusSign.glb',
   loading: 'models/loading.glb',
   tile: 'models/tile.glb',
-  platform: 'models/platform.glb'
+  platform: 'models/platform.glb',
+  text: 'models/text.glb'
 } as const
 
 export const colors = {

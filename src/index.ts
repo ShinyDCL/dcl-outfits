@@ -21,6 +21,13 @@ export function main() {
     parent: scene
   })
 
+  const text = engine.addEntity()
+  GltfContainer.create(text, { src: models.text })
+  Transform.create(text, {
+    position: Vector3.create(0, 11, -10),
+    parent: platform
+  })
+
   const skyboxManager = new SkyboxManager(scene)
   createArrowButtons(platform, skyboxManager.next, skyboxManager.previous)
   setupMusic()

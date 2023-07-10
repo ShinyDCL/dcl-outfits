@@ -24,7 +24,7 @@ export const setupUi = (onSubmitAddress: (address: string) => void) => {
           positionType: 'absolute',
           position: { top: 0, right: -300 }
         }}
-        uiBackground={{ color: colors.pink }}
+        uiBackground={{ color: colors.black }}
       >
         <Button
           value="Click here to check your friends outfits!"
@@ -47,7 +47,7 @@ export const setupUi = (onSubmitAddress: (address: string) => void) => {
           display: isInputVisible ? 'flex' : 'none',
           padding: 5
         }}
-        uiBackground={{ color: colors.blue }}
+        uiBackground={{ color: colors.black }}
       >
         <UiEntity
           uiTransform={{

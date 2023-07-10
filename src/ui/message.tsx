@@ -15,7 +15,7 @@ export const Message = () => (
       position: { top: 200, right: -300 },
       display: isVisible ? 'flex' : 'none'
     }}
-    uiBackground={{ color: colors.blue }}
+    uiBackground={{ color: colors.black }}
   >
     <UiEntity
       uiTransform={{
