@@ -1,6 +1,7 @@
 import * as utils from '@dcl-sdk/utils'
 import { AudioStream, Transform, engine } from '@dcl/sdk/ecs'
 import { sceneMiddle, yOffset } from '../resources'
+import { audioStreamUrl } from '../config'
 
 /*
  * Creates one time trigger for starting music when user enters it
@@ -23,7 +24,7 @@ export const setupMusic = () => {
     () => {
       const streamEntity = engine.addEntity()
       AudioStream.create(streamEntity, {
-        url: 'https://icecast.ravepartyradio.org/ravepartyradio-192.mp3',
+        url: audioStreamUrl,
         playing: true,
         volume: 0.8
       })
