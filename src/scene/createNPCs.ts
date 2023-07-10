@@ -11,13 +11,17 @@ let npcRootEntity: Entity
 export const createNPCs = (parent: Entity, outfits: Outfit[], name: string = 'NPC') => {
   if (npcRootEntity) removeEntityWithChildren(engine, npcRootEntity)
 
+  // Filter out empty outfit slots
+  const fullOutfits = outfits.filter(({ outfit }) => outfit?.bodyShape && outfit?.wearables?.length)
+  const outfitCount = fullOutfits.length
+
   npcRootEntity = engine.addEntity()
   Transform.create(npcRootEntity, {
-    position: Vector3.create(-4.8, 0.25, -3),
+    position: Vector3.create(-outfitCount, 0.25, -3),
     parent
   })
 
-  outfits.forEach(({ outfit }, i) => {
+  fullOutfits.forEach(({ outfit }, i) => {
     if (!outfit) return
 
     const {
