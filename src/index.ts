@@ -1,12 +1,14 @@
-import { engine, executeTask, GltfContainer, Transform } from '@dcl/sdk/ecs'
-import { Vector3 } from '@dcl/sdk/math'
-import { models, sceneMiddle, yOffset } from './resources'
 import { movePlayerTo } from '~system/RestrictedActions'
 import { getUserData } from '~system/UserIdentity'
+
+import { engine, executeTask, GltfContainer, Transform } from '@dcl/sdk/ecs'
+import { Vector3 } from '@dcl/sdk/math'
+
 import { getUserOutfits, getUserProfile } from './api'
-import { setupUi, showMessage } from './ui'
-import { SkyboxManager } from './skybox/skyboxManager'
-import { createArrowButtons, createNPCs, setupMusic } from './scene'
+import { models, sceneMiddle, yOffset } from './resources'
+import { createArrowButtons, createNPCs, setUpMusic } from './scene'
+import { SkyboxManager } from './skybox'
+import { setUpUi, showMessage } from './ui'
 
 export function main() {
   const scene = engine.addEntity()
@@ -29,15 +31,15 @@ export function main() {
   })
 
   const skyboxManager = new SkyboxManager(scene)
-  createArrowButtons(platform, skyboxManager.next, skyboxManager.previous)
-  setupMusic()
+  createArrowButtons(platform, skyboxManager.change)
+  setUpMusic()
 
-  setupUi((address: string) => {
+  setUpUi((address: string) => {
     executeTask(async () => {
       const user = await getUserProfile(address)
       const outfits = await getUserOutfits(address)
 
-      if (outfits) createNPCs(platform, outfits, user?.name)
+      if (outfits?.length) createNPCs(platform, outfits, user?.name)
       else showMessage(`Looks like this user doesn't\n have any outfits created!`)
     })
   })
@@ -51,7 +53,7 @@ export function main() {
 
     const { userId, displayName } = userData.data
     const outfits = await getUserOutfits(userId)
-    if (outfits) createNPCs(platform, outfits, displayName)
+    if (outfits?.length) createNPCs(platform, outfits, displayName)
     else showMessage(`Looks like you don't have any outfits,\n start by creating some!`)
   })
 

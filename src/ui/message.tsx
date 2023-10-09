@@ -1,6 +1,7 @@
-import ReactEcs, { UiEntity } from '@dcl/sdk/react-ecs'
-import { colors } from '../resources'
 import * as utils from '@dcl-sdk/utils'
+import ReactEcs, { UiEntity } from '@dcl/sdk/react-ecs'
+
+import { colors } from '../resources'
 
 let isVisible = false
 let message = ''

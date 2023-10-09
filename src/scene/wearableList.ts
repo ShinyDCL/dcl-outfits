@@ -1,7 +1,8 @@
-import { Entity, Transform, engine, executeTask } from '@dcl/sdk/ecs'
+import { engine, Entity, executeTask, Transform } from '@dcl/sdk/ecs'
 import { Vector3 } from '@dcl/sdk/math'
-import { createWearableTile, tileSize } from './wearableTile'
+
 import { getAllWearableDetails } from '../api'
+import { createWearableTile, tileSize } from './wearableTile'
 
 const space = 0.02
 const columns = 2

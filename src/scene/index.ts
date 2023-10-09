@@ -1,3 +1,3 @@
-export * from './setupMusic'
+export * from './music'
 export * from './arrowButtons'
-export * from './createNPCs'
+export * from './npcs'

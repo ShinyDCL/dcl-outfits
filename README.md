@@ -12,19 +12,36 @@ Experience is created for the recently introduced feature - outfits. It is sugge
 Features:
 
 - See your outfits - if you have any created then they will appear when entering the scene
-  ![User outfits](screenshots/user-outfits.png)
+  ![User outfits](screenshots/user-outfits.jpg)
 - Checkout you friends outfits - use the button at the top of the 2D UI and enter your friends ETH address starting with 0x
-  ![Friend outfits](screenshots/friend-outfits.png)
+  ![Friend outfits](screenshots/friend-outfits.jpg)
 - See outfit details by clicking on '+' button next to outfit. You will be able to see only Polygon wearables, clicking on some tile will open Marketplace.
-  ![Outfit details](screenshots/outfit-details.png)
+  ![Outfit details](screenshots/outfit-details.jpg)
 - Change the scene look by changing skyboxes. Use arrow buttons to switch to next or previous skybox.
-  ![Skybox change](screenshots/skybox-change.png)
+  ![Skybox change](screenshots/skybox-change.jpg)
 
 ## Use of AI
 
 #### Blockade Labs Skybox AI Tool
 
-All of the skyboxes in the scene are generated using [Blockade Labs Skybox AI Tool](https://skybox.blockadelabs.com/)
+Skyboxes generated using Blockade Labs [Skybox AI tool](https://skybox.blockadelabs.com/) licensed under the [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/)
+
+## Try it out
+
+1. Download this repository.
+
+2. Install the [Decentraland Editor](https://docs.decentraland.org/creator/development-guide/sdk7/editor/)
+
+3. Open a Visual Studio Code window on this scene's root folder. Not on the root folder of the whole repo, but instead on this sub-folder that belongs to the scene.
+
+4. Open the Decentraland Editor tab, and press **Run Scene**
+
+Alternatively, you can use the command line. Inside this scene root directory run:
+
+```
+npm i
+npm run start
+```
 
 ## Copyright info
 

@@ -1,70 +1,74 @@
-import { Entity, GltfContainer, InputAction, PointerEvents, Transform, engine, pointerEventsSystem } from '@dcl/sdk/ecs'
+import { AudioSource, engine, Entity, GltfContainer, Transform } from '@dcl/sdk/ecs'
 import { Vector3 } from '@dcl/sdk/math'
-import { models } from '../resources'
+
+import { models, sounds } from '../resources'
+import {
+  addInteraction,
+  hideEntity,
+  playSound,
+  removeInteraction,
+  showEntity,
+  updateButtonFeedback,
+  updateModel
+} from '../utils'
 import { createWearableList } from './wearableList'
+
+enum Actions {
+  Expand = 'Expand',
+  Collapse = 'Collapse'
+}
 
 /*
  * Creates expandable and collapsable details button by pressing which outfit wearables list gets displayed or hidden
  */
 export const createDetailsButton = (parent: Entity, wearables: string[]) => {
   let isExpanded = false
-  let buttonSign: Entity
   let wearableList: Entity
 
   const button = engine.addEntity()
   GltfContainer.create(button, { src: models.button })
-  Transform.create(button, {
-    position: Vector3.create(-0.5, 0.5, 0.7),
-    parent
+  Transform.create(button, { position: Vector3.create(-0.5, 0.5, 0.7), parent })
+
+  AudioSource.create(button, {
+    audioClipUrl: sounds.click,
+    playing: false,
+    loop: false
   })
 
-  buttonSign = engine.addEntity()
+  const buttonSign = engine.addEntity()
   GltfContainer.create(buttonSign, { src: models.plusSign })
   Transform.create(buttonSign, { parent: button })
 
   const onPointerDown = () => {
-    // Collapse wearable list if it is expanded
+    playSound(button)
+
     if (isExpanded) {
-      const transform = Transform.getMutableOrNull(wearableList)
-      if (transform) transform.scale = Vector3.create(0, 0, 0)
+      // Collapse wearable list
+      hideEntity(wearableList)
+      updateButtonFeedback(button, Actions.Expand)
+      updateModel(buttonSign, models.plusSign)
+    } else {
+      if (wearableList) {
+        // If wearable list already exists, then expand it
+        showEntity(wearableList)
+        updateButtonFeedback(button, Actions.Collapse)
+        updateModel(buttonSign, models.minusSign)
+      } else {
+        // If wearable list doesn't exist, it needs to be created
+        // Remove interaction from button while wearable list is loading
+        removeInteraction(button)
+        updateModel(buttonSign, models.loading)
 
-      const hoverFeedback = PointerEvents.getMutableOrNull(button)
-      if (hoverFeedback?.pointerEvents?.[0]?.eventInfo) hoverFeedback.pointerEvents[0].eventInfo.hoverText = 'Expand'
-
-      GltfContainer.createOrReplace(buttonSign, { src: models.plusSign })
-      isExpanded = false
-      return
+        wearableList = createWearableList(button, wearables, () => {
+          // Add back interaction when wearable list has been created
+          addInteraction(button, Actions.Collapse, onPointerDown)
+          updateModel(buttonSign, models.minusSign)
+        })
+      }
     }
 
-    // Expand wearable list without loading data if wearable list has already been created
-    if (!isExpanded && wearableList) {
-      const transform = Transform.getMutableOrNull(wearableList)
-      if (transform) transform.scale = Vector3.create(1, 1, 1)
-
-      const hoverFeedback = PointerEvents.getMutableOrNull(button)
-      if (hoverFeedback?.pointerEvents?.[0]?.eventInfo) hoverFeedback.pointerEvents[0].eventInfo.hoverText = 'Collapse'
-
-      GltfContainer.createOrReplace(buttonSign, { src: models.minusSign })
-      isExpanded = true
-      return
-    }
-
-    // Get data and create wearable list
-    PointerEvents.deleteFrom(button)
-    GltfContainer.createOrReplace(buttonSign, { src: models.loading })
-
-    wearableList = createWearableList(button, wearables, () => {
-      GltfContainer.createOrReplace(buttonSign, { src: models.minusSign })
-      pointerEventsSystem.onPointerDown(
-        { entity: button, opts: { button: InputAction.IA_POINTER, hoverText: 'Collapse' } },
-        onPointerDown
-      )
-      isExpanded = true
-    })
+    isExpanded = !isExpanded
   }
 
-  pointerEventsSystem.onPointerDown(
-    { entity: button, opts: { button: InputAction.IA_POINTER, hoverText: 'Expand' } },
-    onPointerDown
-  )
+  addInteraction(button, Actions.Expand, onPointerDown)
 }

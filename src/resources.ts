@@ -17,6 +17,10 @@ export const models = {
   text: 'models/text.glb'
 } as const
 
+export const sounds = {
+  click: 'sounds/click.mp3'
+} as const
+
 export const colors = {
   blue: Color4.create(0, 0, 1, 0.8),
   pink: Color4.create(1, 0, 1, 0.8),

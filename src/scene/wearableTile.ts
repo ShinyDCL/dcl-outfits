@@ -1,18 +1,12 @@
-import {
-  Entity,
-  GltfContainer,
-  InputAction,
-  Material,
-  MeshRenderer,
-  Transform,
-  engine,
-  pointerEventsSystem
-} from '@dcl/sdk/ecs'
-import { Wearable } from '../api'
-import { Quaternion, Vector3 } from '@dcl/sdk/math'
 import { openExternalUrl } from '~system/RestrictedActions'
-import { models } from '../resources'
+
+import { engine, Entity, GltfContainer, Material, MeshRenderer, Transform } from '@dcl/sdk/ecs'
+import { Quaternion, Vector3 } from '@dcl/sdk/math'
+
+import { Wearable } from '../api'
 import { marketplaceUrl } from '../config'
+import { models } from '../resources'
+import { addInteraction } from '../utils'
 
 export const tileSize = 0.4
 export const tileImageSize = tileSize * 0.92
@@ -36,7 +30,7 @@ export const createWearableTile = (parent: Entity, position: Vector3.MutableVect
   MeshRenderer.setPlane(tileImage)
   Material.setBasicMaterial(tileImage, { texture: Material.Texture.Common({ src: thumbnail }) })
 
-  pointerEventsSystem.onPointerDown({ entity: tile, opts: { button: InputAction.IA_POINTER, hoverText: name } }, () =>
+  addInteraction(tile, name, () => {
     openExternalUrl({ url: `${marketplaceUrl}${url}` })
-  )
+  })
 }

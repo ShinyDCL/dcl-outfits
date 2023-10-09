@@ -1,12 +1,13 @@
-import { Entity, engine, Transform, MeshRenderer, Material } from '@dcl/sdk/ecs'
-import { Vector3, Quaternion } from '@dcl/sdk/math'
+import { engine, Entity, Material, MeshRenderer, Transform } from '@dcl/sdk/ecs'
+import { Quaternion, Vector3 } from '@dcl/sdk/math'
+
 import { sceneSize } from '../resources'
 
-export const createSkyBox = (parent: Entity, folderName: string): Entity => {
+export const createSkyBox = (parent: Entity, folderName: string, visible?: boolean): Entity => {
   const folderPath = `images/skybox/${folderName}`
   const defaultScale = Vector3.create(sceneSize, sceneSize, sceneSize)
   const skyBoxRoot = engine.addEntity()
-  Transform.create(skyBoxRoot, { parent })
+  Transform.create(skyBoxRoot, { parent, scale: visible ? Vector3.create(1, 1, 1) : Vector3.create(0, 0, 0) })
 
   //front
   const skyBoxPZ = engine.addEntity()

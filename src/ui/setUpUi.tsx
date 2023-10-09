@@ -1,9 +1,10 @@
-import ReactEcs, { Button, Input, Label, ReactEcsRenderer, UiEntity } from '@dcl/sdk/react-ecs'
 import { Color4 } from '@dcl/sdk/math'
+import ReactEcs, { Button, Input, Label, ReactEcsRenderer, UiEntity } from '@dcl/sdk/react-ecs'
+
 import { colors } from '../resources'
 import { Message } from './message'
 
-export const setupUi = (onSubmitAddress: (address: string) => void) => {
+export const setUpUi = (onSubmitAddress: (address: string) => void) => {
   let isInputVisible = false
   let currentInputValue = ''
 

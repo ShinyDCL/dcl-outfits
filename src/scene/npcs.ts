@@ -1,7 +1,8 @@
-import { AvatarShape, Entity, Transform, engine, removeEntityWithChildren } from '@dcl/sdk/ecs'
-import { Color4, Vector3 } from '@dcl/sdk/math'
-import { createDetailsButton } from './detailsButton'
+import { AvatarShape, engine, Entity, Transform } from '@dcl/sdk/ecs'
+import { Vector3 } from '@dcl/sdk/math'
+
 import { Outfit } from '../api'
+import { createDetailsButton } from './detailsButton'
 
 let npcRootEntity: Entity
 
@@ -9,7 +10,7 @@ let npcRootEntity: Entity
  * Creates NPCs for each outfit
  */
 export const createNPCs = (parent: Entity, outfits: Outfit[], name: string = 'NPC') => {
-  if (npcRootEntity) removeEntityWithChildren(engine, npcRootEntity)
+  if (npcRootEntity) engine.removeEntityWithChildren(npcRootEntity)
 
   // Filter out empty outfit slots
   const fullOutfits = outfits.filter(({ outfit }) => outfit?.bodyShape && outfit?.wearables?.length)
@@ -24,20 +25,16 @@ export const createNPCs = (parent: Entity, outfits: Outfit[], name: string = 'NP
   fullOutfits.forEach(({ outfit }, i) => {
     if (!outfit) return
 
-    const {
-      eyes: { color: eyeColor },
-      hair: { color: hairColor },
-      skin: { color: skinColor }
-    } = outfit
+    const { eyes, hair, skin } = outfit
     const npc = engine.addEntity()
 
     AvatarShape.create(npc, {
       id: i.toString(),
       bodyShape: outfit.bodyShape,
       wearables: outfit.wearables,
-      eyeColor: Color4.create(eyeColor.r, eyeColor.g, eyeColor.b, eyeColor.a),
-      hairColor: Color4.create(hairColor.r, hairColor.g, hairColor.b, hairColor.a),
-      skinColor: Color4.create(skinColor.r, skinColor.g, skinColor.b, skinColor.a),
+      eyeColor: eyes.color,
+      hairColor: hair.color,
+      skinColor: skin.color,
       emotes: [],
       name
     })

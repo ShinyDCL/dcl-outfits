@@ -1,2 +1,2 @@
-export * from './setupUi'
+export * from './setUpUi'
 export * from './message'
