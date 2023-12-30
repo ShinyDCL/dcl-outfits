@@ -17,8 +17,8 @@ export const getAllWearableDetails = async (urns: string[]): Promise<Wearable[] 
     const results = await Promise.all(
       urns.map((urn) => {
         const urnParts = urn.split(':')
-        const contractAddress = urnParts[urnParts.length - 2]
-        const itemId = urnParts[urnParts.length - 1]
+        const contractAddress = urnParts[urnParts.length - 3]
+        const itemId = urnParts[urnParts.length - 2]
 
         if (contractAddress && itemId && contractRegex.test(contractAddress)) {
           return getWearableDetails(contractAddress, itemId)

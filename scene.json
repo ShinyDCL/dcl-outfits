@@ -14,9 +14,7 @@
 	},
 	"main": "bin/index.js",
 	"tags": [
-		"Outfits",
-		"Fashion",
-		"Wearables"
+		"fashion"
 	],
 	"scene": {
 		"parcels": [

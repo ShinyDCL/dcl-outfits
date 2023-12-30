@@ -36,7 +36,7 @@ export const setUpUi = (onSubmitAddress: (address: string) => void) => {
           uiBackground={{ color: colors.black }}
           fontSize={20}
           textAlign="middle-center"
-          onMouseDown={() => (isInputVisible = true)}
+          onMouseDown={() => (isInputVisible = !isInputVisible)}
         />
       </UiEntity>
       <UiEntity
